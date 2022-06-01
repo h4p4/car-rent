@@ -1,0 +1,25 @@
+﻿<Window x:Class="CarRent.Views.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarRent.Views"
+        mc:Ignorable="d"
+        Title="Choose Role" Height="150" Width="350"
+        FontSize="35"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding LogAsUserCommand}" Content="USER" Grid.Column="0" Margin="10 25"/>
+        <Button Content="ADMIN" Grid.Column="1" Margin="10 25" Name="LogAsAdminBtn" Click="LogAsAdminBtn_Click"/>
+        <PasswordBox Name="AdminPBox" Visibility="Hidden" Grid.ColumnSpan="2" Margin="10 25" PasswordChanged="AdminPBox_PasswordChanged"></PasswordBox>
+        <TextBlock Foreground="Gray" Name="PassTBlock" Text="Enter Password" Visibility="Hidden" Grid.ColumnSpan="2" Margin="25 25" IsHitTestVisible="False"/>
+
+        <Button IsDefault="True" Height="0" Width="0" Command="{Binding LogAsAdminCommand}" CommandParameter="{Binding ElementName=AdminPBox}"/>
+        <Button IsCancel="True" Height="0" Width="0" Name="HidePBoxBtn" Click="HidePBoxBtn_Click"/>
+    </Grid>
+</Window>
