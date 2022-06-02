@@ -3,11 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CarRent.Views"
+        xmlns:local="clr-namespace:CarRent.Views" xmlns:viewmodels="clr-namespace:CarRent.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:UserWindowViewModel}"
         mc:Ignorable="d"
-        Title="Car Rental" Height="450" Width="800"
+        Title="Car Rental" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Margin="20 5 20 50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            
+        <TextBlock Grid.Row="0" FontSize="40" Text="Доступные авто:"/>
+        <Grid Grid.Column="1" Margin="0 10 0 4" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
+            <ComboBox Grid.Column="1" MinWidth="200" ItemsSource="{Binding SortComboBoxItems}" FontSize="16"/>
+            <TextBox  Grid.Column="2" Margin="10 0 0 0" FontSize="18" VerticalContentAlignment="Center"/>
+        </Grid>
+
+        <ListView Grid.Row="1"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightGray" BorderThickness="0 0 0 1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" FontSize="30" >
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} | {2}">
+                                        <Binding Path="CarBrand.Title" />
+                                        <Binding Path="Title"/>
+                                        <Binding Path="ReleaseYear"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1" FontSize="20">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} ₽">
+                                        <Binding Path="CostPerDay"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <Image HorizontalAlignment="Left" Grid.Row="2" Width="280" Margin="5 10" Source="{Binding Image}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
         
     </Grid>
 </Window>

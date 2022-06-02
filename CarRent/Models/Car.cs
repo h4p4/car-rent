@@ -19,6 +19,7 @@ namespace CarRent.Models
         public int ReleaseYear { get; set; }
         public string? Image { get; set; }
         public decimal CostPerDay { get; set; }
+        public string Title { get; set; }
 
         public virtual CarBrand CarBrand { get; set; } = null!;
         public virtual CarStatus CarStatus { get; set; } = null!;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarRent.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,9 @@ namespace CarRent.Views
         public UserWindow()
         {
             InitializeComponent();
+            this.DataContext = new UserWindowViewModel();
+            Helper.db.CarBrands.Load();
+            SortComboBox.SelectedIndex = 1;
         }
     }
 }
