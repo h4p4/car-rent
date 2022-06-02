@@ -54,7 +54,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="180" Name="CarPictureRowDefiniton"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -75,7 +75,7 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <Image VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Image}"/>
+                            <Image  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Image}"/>
                             <!--<Grid.Background>
                                 <ImageBrush  Stretch="UniformToFill" AlignmentY="Center"  ImageSource="{Binding Image}"></ImageBrush>
                             </Grid.Background>-->
