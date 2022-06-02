@@ -28,5 +28,13 @@ namespace CarRent.Views
             Helper.db.CarBrands.Load();
             SortComboBox.SelectedIndex = 1;
         }
+
+        private void SearchTBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchTBlock.Visibility = Visibility.Hidden;
+            if (String.IsNullOrWhiteSpace(SearchTBox.Text))
+                SearchTBlock.Visibility = Visibility.Visible;
+
+        }
     }
 }
