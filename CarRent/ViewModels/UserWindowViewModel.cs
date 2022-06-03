@@ -127,7 +127,7 @@ namespace CarRent.ViewModels
             {
                 FilterComboBoxItems.Add(new ComboBoxItem { Content=carBrand.Title });
             }
-
+            _listBoxWidth = 400;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -137,6 +137,26 @@ namespace CarRent.ViewModels
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
+        }
+
+
+        private double _listBoxWidth;
+        private double _carPictureHeight;
+
+        public double ListBoxWidth
+        {
+            get { return _listBoxWidth; }
+            set { _listBoxWidth = value; OnPropertyChanged(nameof(ListBoxWidth)); ChangePictureHeight(); }
+        }
+
+        public double CarPictureHeight
+        {
+            get { return _carPictureHeight; }
+            set { _carPictureHeight = value; OnPropertyChanged(nameof(CarPictureHeight)); }
+        }
+        private void ChangePictureHeight()
+        {
+            CarPictureHeight = ListBoxWidth;
         }
     }
 }
