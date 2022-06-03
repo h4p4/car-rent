@@ -31,7 +31,7 @@
             <TextBox  Grid.Column="2" Margin="10 0 0 0" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" FontSize="18" VerticalContentAlignment="Center" Name="SearchTBox" TextChanged="SearchTBox_TextChanged"/>
             <TextBlock Foreground="Gray" Grid.Column="2" Margin="15 8 0 0" FontSize="18" Text="Поиск" Name="SearchTBlock" IsHitTestVisible="False"/>
         </Grid>
-        <GridSplitter Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" Width="8" Grid.Row="0" Grid.RowSpan="2">
+        <!--<GridSplitter Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" Width="8" Grid.Row="0" Grid.RowSpan="2">
             <GridSplitter.Template>
                 <ControlTemplate TargetType="{x:Type GridSplitter}">
                     <Grid>
@@ -40,7 +40,7 @@
                     </Grid>
                 </ControlTemplate>
             </GridSplitter.Template>
-        </GridSplitter>
+        </GridSplitter>-->
         <ListBox Grid.Row="1"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False" MinWidth="325">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
