@@ -30,17 +30,19 @@ namespace CarRent.Views
             AdminPBox.Visibility = Visibility.Visible;
             PassTBlock.Visibility = Visibility.Visible;
         }
-        private void HidePBoxBtn_Click(object sender, RoutedEventArgs e)
-        {
-            AdminPBox.Password = String.Empty;
-            AdminPBox.Visibility = Visibility.Hidden;
-            PassTBlock.Visibility = Visibility.Hidden;
-        }
+        //private void HidePBoxBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AdminPBox.Password = String.Empty;
+        //    AdminPBox.Visibility = Visibility.Hidden;
+        //    PassTBlock.Visibility = Visibility.Hidden;
+        //}
         private void AdminPBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            PassTBlock.Visibility=Visibility.Visible;
+            PassTBlock.Visibility = Visibility.Visible;
             if (String.IsNullOrWhiteSpace(AdminPBox.Password)) return;
             PassTBlock.Visibility = Visibility.Hidden;
         }
+
     }
 }
+

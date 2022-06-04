@@ -24,6 +24,7 @@ namespace CarRent.Views
         public UserWindow()
         {
             InitializeComponent();
+            Helper.IsCurrentUserAdmin = false;
             this.DataContext = new UserWindowViewModel();
             Helper.db.CarBrands.Load();
             Helper.db.SteeringWheelSides.Load();
@@ -39,7 +40,6 @@ namespace CarRent.Views
             SearchTBlock.Visibility = Visibility.Hidden;
             if (String.IsNullOrWhiteSpace(SearchTBox.Text))
                 SearchTBlock.Visibility = Visibility.Visible;
-
         }
 
         private void CarList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,6 +54,26 @@ namespace CarRent.Views
                 return;
             }
             SelectedCarVisabilityBorder.Visibility = Visibility.Hidden;
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            SelectedCarManipulationContextMenu.IsOpen = false;
+            ChangeContextMenuVisability();
+
+        }
+        private async void ChangeContextMenuVisability()
+        {
+            await Task.Delay(150);
+            if (Helper.IsCurrentUserAdmin)
+            {
+                SelectedCarManipulationContextMenu.IsEnabled = true;
+                SelectedCarManipulationContextMenu.Visibility = Visibility.Visible;
+
+                return;
+            }
+            SelectedCarManipulationContextMenu.IsEnabled = false;
+            SelectedCarManipulationContextMenu.Visibility = Visibility.Hidden;
         }
     }
 }

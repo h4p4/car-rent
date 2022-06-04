@@ -1,4 +1,5 @@
 ﻿using CarRent.Models;
+using CarRent.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TaskSystem;
 
 namespace CarRent.ViewModels
 {
@@ -114,6 +116,44 @@ namespace CarRent.ViewModels
                                                                                                ));
                     
         }
+
+        private RelayCommand _changeRoleCommand;
+        public RelayCommand ChangeRoleCommand
+        {
+            get
+            {
+                return _changeRoleCommand ??
+                    (_changeRoleCommand = new RelayCommand(obj =>
+                    {
+                        StartWindow startWindow = new StartWindow();
+                        startWindow.ShowDialog();
+                    }));
+            }
+        }
+        //private string _isSelectedCarManipulationContextMenuEnabled;
+        //private string _isSelectedCarManipulationContextMenuVisible;
+
+        //public string IsSelectedCarManipulationContextMenuEnabled
+        //{
+        //    get { return _isSelectedCarManipulationContextMenuEnabled; }
+        //    set 
+        //    { 
+        //        _isSelectedCarManipulationContextMenuEnabled = value;
+        //        OnPropertyChanged(nameof(IsSelectedCarManipulationContextMenuEnabled));
+        //        Helper.IsContextMenuEnabled = value;
+        //    }
+        //}
+        //public string IsSelectedCarManipulationContextMenuVisible
+        //{
+        //    get { return _isSelectedCarManipulationContextMenuVisible; }
+        //    set 
+        //    { 
+        //        _isSelectedCarManipulationContextMenuVisible = value;
+        //        OnPropertyChanged(nameof(IsSelectedCarManipulationContextMenuVisible));
+        //        Helper.IsContextMenuVisible = value;
+        //    }
+        //}
+
 
         public UserWindowViewModel()
         {

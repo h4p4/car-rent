@@ -44,9 +44,9 @@ namespace CarRent.ViewModels
                 return _logAsUserCommand ??
                     (_logAsUserCommand = new RelayCommand(obj =>
                     {
-                        UserWindow userWindow = new UserWindow();
-                        userWindow.Show();
+                        IsAdmin = false;
                         Application.Current.Windows.OfType<StartWindow>().First().Close();
+                        
                     }));
             }
         }
@@ -58,13 +58,26 @@ namespace CarRent.ViewModels
                     (_logAsAdminCommand = new RelayCommand(obj =>
                     {
                         var pass = obj as PasswordBox;
+                        IsAdmin = false;
                         if (pass.Password != "123") return;
-                        AdminWindow adminWindow = new AdminWindow();
-                        adminWindow.Show();
+                        IsAdmin = true;
                         Application.Current.Windows.OfType<StartWindow>().First().Close();
                     }));
             }
         }
+        private bool _isAdmin;
+
+        public bool IsAdmin
+        {
+            get { return _isAdmin; }
+            set 
+            { 
+                _isAdmin = value; OnPropertyChanged(nameof(IsAdmin));
+                Helper.IsCurrentUserAdmin = IsAdmin;
+
+            }
+        }
+
         public StartWindowViewModel()
         {
 
