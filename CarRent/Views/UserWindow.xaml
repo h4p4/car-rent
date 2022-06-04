@@ -7,20 +7,24 @@
         mc:Ignorable="d"
         Title="Car Rental" Height="720" Width="1280" MinWidth="1150"
         WindowStartupLocation="CenterScreen"
-        FontSize="20">
+        FontSize="21">
+    <Window.Resources>
+        <viewmodels:UserWindowViewModel x:Key="vm"></viewmodels:UserWindowViewModel>
+    </Window.Resources>
     <Grid Margin="20 5 20 50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="310"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="55"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" FontSize="40" Text="Доступные авто:"/>
+        <TextBox  Grid.Column="0" Margin="0 10 0 4" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" FontSize="18" VerticalContentAlignment="Center" Name="SearchTBox" TextChanged="SearchTBox_TextChanged"/>
+        <TextBlock Foreground="Gray" Grid.Column="0" Margin="3 17" FontSize="18" Text="Поиск" Name="SearchTBlock" IsHitTestVisible="False"/>
+        <!--<TextBlock Grid.Row="0" FontSize="40" Text="Доступные авто:"/>-->
         <Grid Grid.Column="2" Margin="0 10 0 4" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210"/>
@@ -29,9 +33,11 @@
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
             <ComboBox Grid.Column="1" MinWidth="200" ItemsSource="{Binding FilterComboBoxItems}" SelectedItem="{Binding FilterComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
-            <TextBox  Grid.Column="2" Margin="10 0 0 0" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" FontSize="18" VerticalContentAlignment="Center" Name="SearchTBox" TextChanged="SearchTBox_TextChanged"/>
-            <TextBlock Foreground="Gray" Grid.Column="2" Margin="15 8 0 0" FontSize="18" Text="Поиск" Name="SearchTBlock" IsHitTestVisible="False"/>
+
         </Grid>
+        <Border Grid.Row="1" Grid.Column="2"  BorderBrush="LightGray" BorderThickness="1">
+            <Image Margin="10 5 10 10" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform"  Source="{Binding SelectedCar.Image}"/>
+        </Border>
         <!--<GridSplitter Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" Width="8" Grid.Row="0" Grid.RowSpan="2">
             <GridSplitter.Template>
                 <ControlTemplate TargetType="{x:Type GridSplitter}">
@@ -76,7 +82,7 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <Image  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Image}"/>
+                            <Image VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Image}"/>
                             <!--<Grid.Background>
                                 <ImageBrush  Stretch="UniformToFill" AlignmentY="Center"  ImageSource="{Binding Image}"></ImageBrush>
                             </Grid.Background>-->
@@ -85,45 +91,56 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="350"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.ColumnSpan="2" Grid.Row="0" Height="30" Width="200" BorderThickness="0">Марка + название</TextBox>
-            <TextBox Grid.ColumnSpan="2" Grid.Row="1" Height="30" Width="200" BorderThickness="0">Денег в сутки р.</TextBox>
-            <Button  Grid.ColumnSpan="3" Grid.Row="2" Height="30" Width="200" HorizontalAlignment="Left" Margin="10 0 0 0">Забронировать</Button>
-            <TextBox Grid.ColumnSpan="2" Grid.Row="3" Height="30" Width="200" BorderThickness="0" >Характеристики:</TextBox>
-            <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center">
+        <Border Grid.Column="3" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1" Padding="10 10 0 0">
+            <Grid Name="SelectedCarGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="350"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="130"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Height="30" FontSize="15">Коробка Передач:</TextBlock>
-                <TextBlock Grid.Row="1" Height="30" FontSize="15">Объем двигателя:</TextBlock>
-                <TextBlock Grid.Row="2" Height="30" FontSize="15">Руль:</TextBlock>
-                <TextBlock Grid.Row="3" Height="30" FontSize="15">Год выпуска:</TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="15">Коробка</TextBox>
-                <TextBox Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="15">Объем</TextBox>
-                <TextBox Grid.Row="2" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="15">Руль</TextBox>
-                <TextBox Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="15">Год</TextBox>
-            </Grid>
+                <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBox Margin="0 0 5 0" Height="30" DataContext="{Binding SelectedCar}" Text="{Binding CarBrand.Title}" BorderThickness="0"></TextBox>
+                    <TextBox Height="30" DataContext="{Binding SelectedCar}" Text="{Binding Title}" BorderThickness="0"></TextBox>
+                </StackPanel>
+                <StackPanel Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <TextBox Height="30" BorderThickness="0" Margin="0 0 5 0" DataContext="{Binding SelectedCar}" Text="{Binding CostPerDay}"></TextBox>
+                    <TextBlock>рублей в день</TextBlock>
+                </StackPanel>
+                <Button  Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
+                <TextBlock FontWeight="DemiBold" Margin="0 15 0 0" Grid.ColumnSpan="3" Grid.Row="3" Height="30" HorizontalAlignment="Stretch">Характеристики:</TextBlock>
+                
+                <Grid Margin="0 5 0 0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" DataContext="{Binding SelectedCar}">
+                        
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="180"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Height="30" FontSize="20">Коробка Передач:</TextBlock>
+                    <TextBlock Grid.Row="1" Height="30" FontSize="20">Объем двигателя:</TextBlock>
+                    <TextBlock Grid.Row="2" Height="30" FontSize="20">Руль:</TextBlock>
+                    <TextBlock Grid.Row="3" Height="30" FontSize="20">Год выпуска:</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding TransmissionType.Title}"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding EngineVolume}"></TextBox>
+                    <TextBox Grid.Row="2" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SteeringWheelSide.Title}"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ReleaseYear}"></TextBox>
+                    
+                </Grid>
 
-        </Grid>
+            </Grid>
+        </Border>
 
     </Grid>
 </Window>

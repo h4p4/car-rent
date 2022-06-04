@@ -26,6 +26,8 @@ namespace CarRent.Views
             InitializeComponent();
             this.DataContext = new UserWindowViewModel();
             Helper.db.CarBrands.Load();
+            Helper.db.SteeringWheelSides.Load();
+            Helper.db.TransmissionTypes.Load();
             SortComboBox.SelectedIndex = 1;
         }
 

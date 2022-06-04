@@ -172,3 +172,4 @@ E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.pdb
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.genruntimeconfig.cache
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\ref\CarRent.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\refint\CarRent.dll
+E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
