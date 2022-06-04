@@ -60,7 +60,6 @@ Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-wind
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\CarRent.deps.json
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\CarRent.runtimeconfig.json
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\CarRent.dll
-Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\ref\CarRent.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\CarRent.pdb
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\Humanizer.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\Microsoft.Data.SqlClient.dll
@@ -172,3 +171,4 @@ E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\refint\CarRent.dll
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.pdb
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.genruntimeconfig.cache
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\ref\CarRent.dll
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\refint\CarRent.dll
