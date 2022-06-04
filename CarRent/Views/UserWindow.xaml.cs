@@ -28,7 +28,10 @@ namespace CarRent.Views
             Helper.db.CarBrands.Load();
             Helper.db.SteeringWheelSides.Load();
             Helper.db.TransmissionTypes.Load();
+            Helper.db.Rents.Load();
+            Helper.db.Renters.Load();
             SortComboBox.SelectedIndex = 1;
+            ChangeSelectedCarBorderVisability();
         }
 
         private void SearchTBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -37,6 +40,20 @@ namespace CarRent.Views
             if (String.IsNullOrWhiteSpace(SearchTBox.Text))
                 SearchTBlock.Visibility = Visibility.Visible;
 
+        }
+
+        private void CarList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangeSelectedCarBorderVisability();
+        }
+        private void ChangeSelectedCarBorderVisability()
+        {
+            if (CarList.SelectedIndex == -1)
+            {
+                SelectedCarVisabilityBorder.Visibility = Visibility.Visible;
+                return;
+            }
+            SelectedCarVisabilityBorder.Visibility = Visibility.Hidden;
         }
     }
 }

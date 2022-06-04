@@ -16,9 +16,16 @@ namespace CarRent.ViewModels
         private ObservableCollection<ComboBoxItem> _sortComboBoxItems;
         private ObservableCollection<ComboBoxItem> _filterComboBoxItems;
         private ObservableCollection<Car> _carListCollection;
+        private ObservableCollection<Rent> _selectedCarRents;
         private ComboBoxItem _sortComboBoxSelectedItem;
         private ComboBoxItem _filterComboBoxSelectedItem;
         private Car _selectedCar;
+
+        public ObservableCollection<Rent> SelectedCarRents
+        {
+            get { return _selectedCarRents; }
+            set { _selectedCarRents = value; OnPropertyChanged(nameof(SelectedCarRents)); }
+        }
 
         public ObservableCollection<Car> CarListCollection
         {
@@ -28,7 +35,11 @@ namespace CarRent.ViewModels
         public Car SelectedCar
         {
             get { return _selectedCar; }
-            set { _selectedCar = value; OnPropertyChanged(nameof(SelectedCar)); }
+            set { 
+                _selectedCar = value;
+                OnPropertyChanged(nameof(SelectedCar));
+                SelectedCarRents = new ObservableCollection<Rent>(Helper.db.Rents.Where(x => x.CarId == SelectedCar.Id));
+            }
         }
         public ObservableCollection<ComboBoxItem> SortComboBoxItems
         {

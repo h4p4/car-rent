@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CarRent.Views" xmlns:viewmodels="clr-namespace:CarRent.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:UserWindowViewModel}"
+        xmlns:local="clr-namespace:CarRent.Views" 
+        xmlns:viewmodels="clr-namespace:CarRent.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:UserWindowViewModel}"
         mc:Ignorable="d"
         Title="Car Rental" Height="720" Width="1280" MinWidth="1150"
         WindowStartupLocation="CenterScreen"
@@ -25,19 +27,7 @@
         <TextBox  Grid.Column="0" Margin="0 10 0 4" Text="{Binding SearchedText, UpdateSourceTrigger=PropertyChanged}" FontSize="18" VerticalContentAlignment="Center" Name="SearchTBox" TextChanged="SearchTBox_TextChanged"/>
         <TextBlock Foreground="Gray" Grid.Column="0" Margin="3 17" FontSize="18" Text="Поиск" Name="SearchTBlock" IsHitTestVisible="False"/>
         <!--<TextBlock Grid.Row="0" FontSize="40" Text="Доступные авто:"/>-->
-        <Grid Grid.Column="2" Margin="0 10 0 4" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="210"/>
-                <ColumnDefinition Width="210"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
-            <ComboBox Grid.Column="1" MinWidth="200" ItemsSource="{Binding FilterComboBoxItems}" SelectedItem="{Binding FilterComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
 
-        </Grid>
-        <Border Grid.Row="1" Grid.Column="2"  BorderBrush="LightGray" BorderThickness="1">
-            <Image Margin="10 5 10 10" VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform"  Source="{Binding SelectedCar.Image}"/>
-        </Border>
         <!--<GridSplitter Grid.Column="1" ResizeDirection="Columns" HorizontalAlignment="Stretch" Width="8" Grid.Row="0" Grid.RowSpan="2">
             <GridSplitter.Template>
                 <ControlTemplate TargetType="{x:Type GridSplitter}">
@@ -48,7 +38,7 @@
                 </ControlTemplate>
             </GridSplitter.Template>
         </GridSplitter>-->
-        <ListBox Grid.Row="1"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False" MinWidth="325">
+        <ListBox BorderBrush="LightGray" SelectionChanged="CarList_SelectionChanged" Grid.Row="1"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False" MinWidth="325">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -141,6 +131,41 @@
 
             </Grid>
         </Border>
+        <Grid Grid.Column="2" Margin="0 10 0 4" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
+            <ComboBox Grid.Column="1" MinWidth="200" ItemsSource="{Binding FilterComboBoxItems}" SelectedItem="{Binding FilterComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
 
+        </Grid>
+        <Border Grid.Row="1" Grid.Column="2"  BorderBrush="LightGray" BorderThickness="1">
+            <ScrollViewer>
+                <StackPanel Margin="10 5 10 10">
+                    <Image  VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform"  Source="{Binding SelectedCar.Image}"/>
+                    <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold">Отзывы:</TextBlock>
+                    <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="LightGray" BorderThickness="0 0 0 1"  Margin="0 0 0 5" Padding="0 0 0 5" Height="Auto" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Renter.FirstName}" FontWeight="DemiBold"></TextBlock>
+                                        <TextBlock Foreground="Gray" HorizontalAlignment="Right" Text="{Binding DurationDays, StringFormat={}Дней в эксплуатации: {0}}"></TextBlock>
+                                        <TextBlock Grid.Row="1" Text="{Binding Review}" TextWrapping="Wrap"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Visibility="Hidden" Margin="2" Name="SelectedCarVisabilityBorder" Background="White"></Border>
     </Grid>
 </Window>
