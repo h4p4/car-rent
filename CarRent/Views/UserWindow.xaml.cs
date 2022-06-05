@@ -75,5 +75,67 @@ namespace CarRent.Views
             SelectedCarManipulationContextMenu.IsEnabled = false;
             SelectedCarManipulationContextMenu.Visibility = Visibility.Hidden;
         }
+        private bool _canUserEditCar;
+        private void EditCarCheckableMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            _canUserEditCar = true;
+            ChangeEditableElements(_canUserEditCar);
+        }
+
+        private void EditCarCheckableMenuItem_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _canUserEditCar = false;
+            ChangeEditableElements(_canUserEditCar);
+        }
+        private void ChangeEditableElements(bool canEdit)
+        {
+            var TBoxCollection = new List<TextBox>();
+            var CBoxCollection = new List<ComboBox>();
+            CBoxCollection.Add(SelectedCarBrandCBox); //TBoxCollection.Add(SelectedCarBrandTBox);
+            TBoxCollection.Add(SelectedCarTitleTBox);
+            TBoxCollection.Add(SelectedCarCostTBox);
+            //TBoxCollection.Add(SelectedCarTransmissionTypeTBox);
+            TBoxCollection.Add(SelectedCarEngineVolumeTBox);
+            //TBoxCollection.Add(SelectedCarSteeringWheelSideTBox);
+            TBoxCollection.Add(SelectedCarYearTBox);
+            if (canEdit)
+            {
+                // can edit
+                foreach (var cbox in CBoxCollection)
+                    ChangeEditableElementsVisability(true, cbox);
+                foreach (var tbox in TBoxCollection)
+                    ChangeEditableElementsVisability(true, 1, tbox);
+                return;
+            }
+            foreach (var cbox in CBoxCollection)
+                ChangeEditableElementsVisability(false, cbox);
+            foreach (var tbox in TBoxCollection)
+                ChangeEditableElementsVisability(false, 0, tbox);
+            // cant edit 
+
+        }
+        private void ChangeEditableElementsVisability(bool isTrue, int BorderThickness, TextBox textBox)
+        {
+            textBox.IsHitTestVisible = isTrue;
+            textBox.BorderThickness = new Thickness(BorderThickness);
+        }        
+        private void ChangeEditableElementsVisability(bool isTrue, ComboBox comboBox)
+        {
+            comboBox.Visibility = Visibility.Hidden;
+            comboBox.Width = 0;
+            if (isTrue)
+            {
+                comboBox.Visibility = Visibility.Visible;
+                comboBox.Width = Double.NaN;
+            }
+
+        }
+
+        private void ChangeRoleMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            EditCarCheckableMenuItem.IsChecked = false;
+            _canUserEditCar = false;
+            ChangeEditableElements(_canUserEditCar);
+        }
     }
 }

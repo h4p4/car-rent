@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRent.Views" 
-        xmlns:viewmodels="clr-namespace:CarRent.ViewModels" 
+        xmlns:viewmodels="clr-namespace:CarRent.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         d:DataContext="{d:DesignInstance Type=viewmodels:UserWindowViewModel}"
         mc:Ignorable="d"
         Title="Car Rental" Height="720" Width="1280" MinWidth="1150"
@@ -28,7 +28,7 @@
                 </MenuItem>
                 <MenuItem Header="Вид"></MenuItem>
                 <MenuItem Header="Параметры">
-                    <MenuItem Header="Изменить роль" Command="{Binding ChangeRoleCommand}"></MenuItem>
+                    <MenuItem Header="Изменить роль" Command="{Binding ChangeRoleCommand}" Name="ChangeRoleMenuItem" Click="ChangeRoleMenuItem_Click"></MenuItem>
                 </MenuItem>
             </Menu>
         </Border>
@@ -63,7 +63,7 @@
                 <ListBox.ContextMenu>
                     <ContextMenu Name="SelectedCarManipulationContextMenu" IsEnabled="False" Visibility="Hidden">
                         <MenuItem Header="Добавить" Command="{Binding AddNewCarCommand}"></MenuItem>
-                        <MenuItem Header="Редактировать" Command="{Binding EditCarCommand}"></MenuItem>
+                        <MenuItem Header="Редактировать" IsCheckable="True" Name="EditCarCheckableMenuItem" IsChecked="{Binding CanUserEditCar, UpdateSourceTrigger=PropertyChanged}" Checked="EditCarCheckableMenuItem_Checked" Unchecked="EditCarCheckableMenuItem_Unchecked" Command="{Binding EditCarCommand}"></MenuItem>
                         <Separator/>
                         <MenuItem Header="Удалить" Command="{Binding DeleteCarCommand}"></MenuItem>
                     </ContextMenu>
@@ -88,9 +88,9 @@
                                 <TextBlock Grid.Row="0" FontSize="30">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} {1} | {2}">
-                                            <Binding Path="CarBrand.Title" />
-                                            <Binding Path="Title"/>
-                                            <Binding Path="ReleaseYear"/>
+                                            <Binding Path="CarBrand.Title" UpdateSourceTrigger="PropertyChanged"/>
+                                            <Binding Path="Title" UpdateSourceTrigger="PropertyChanged"/>
+                                            <Binding Path="ReleaseYear" UpdateSourceTrigger="PropertyChanged"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -125,18 +125,31 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBox Margin="0 0 5 0" Height="30" DataContext="{Binding SelectedCar}" Text="{Binding CarBrand.Title}" BorderThickness="0"></TextBox>
-                        <TextBox Height="30" DataContext="{Binding SelectedCar}" Text="{Binding Title}" BorderThickness="0"></TextBox>
+                        <Grid Margin="0 0 5 0">
+                            <TextBox Name="SelectedCarBrandTBox" IsHitTestVisible="False"  Height="30" DataContext="{Binding CarBrands}" Text="{Binding ElementName=SelectedCarBrandCBox, Path=Text}"  BorderThickness="0"></TextBox>
+                            <ComboBox ItemsSource="{Binding CarBrands}"
+                                      SelectedValue="{Binding SelectedCar.CarBrandId, UpdateSourceTrigger=PropertyChanged}" 
+                                      SelectedValuePath="Id" 
+                                      DisplayMemberPath="Title"
+                                      Name="SelectedCarBrandCBox" Visibility="Hidden"  Width="0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedCarBrandChanged}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+
+                        <TextBox Name="SelectedCarTitleTBox" IsHitTestVisible="False" Height="30" DataContext="{Binding SelectedCar}" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"></TextBox>
                     </StackPanel>
                     <StackPanel Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBox Height="30" BorderThickness="0" Margin="0 0 5 0" DataContext="{Binding SelectedCar}" Text="{Binding CostPerDay}"></TextBox>
+                        <TextBox Name="SelectedCarCostTBox" IsHitTestVisible="False" Height="30" BorderThickness="0" Margin="0 0 5 0" DataContext="{Binding SelectedCar}" Text="{Binding CostPerDay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock>рублей в день</TextBlock>
                     </StackPanel>
                     <Button  Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
                     <TextBlock FontWeight="DemiBold" Margin="0 15 0 0" Grid.ColumnSpan="3" Grid.Row="3" Height="30" HorizontalAlignment="Stretch">Характеристики:</TextBlock>
 
                     <Grid Margin="0 5 0 0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" DataContext="{Binding SelectedCar}">
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -151,10 +164,10 @@
                         <TextBlock Grid.Row="1" Height="30" FontSize="20">Объем двигателя:</TextBlock>
                         <TextBlock Grid.Row="2" Height="30" FontSize="20">Руль:</TextBlock>
                         <TextBlock Grid.Row="3" Height="30" FontSize="20">Год выпуска:</TextBlock>
-                        <TextBox Grid.Row="0" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding TransmissionType.Title}"></TextBox>
-                        <TextBox Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding EngineVolume}"></TextBox>
-                        <TextBox Grid.Row="2" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SteeringWheelSide.Title}"></TextBox>
-                        <TextBox Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ReleaseYear}"></TextBox>
+                        <TextBox Name="SelectedCarTransmissionTypeTBox" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding TransmissionType.Title , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Name="SelectedCarEngineVolumeTBox" IsHitTestVisible="False" Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding EngineVolume , UpdateSourceTrigger=LostFocus,StringFormat={}{0:#.#}}"></TextBox>
+                        <TextBox Name="SelectedCarSteeringWheelSideTBox" IsHitTestVisible="False" Grid.Row="2" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SteeringWheelSide.Title , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Name="SelectedCarYearTBox" IsHitTestVisible="False" Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ReleaseYear , UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     </Grid>
 
@@ -166,14 +179,14 @@
                     <ColumnDefinition Width="210"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
-                <ComboBox Grid.Column="1" MinWidth="200" ItemsSource="{Binding FilterComboBoxItems}" SelectedItem="{Binding FilterComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
+                <ComboBox BorderThickness="0" Grid.Column="0" Name="SortComboBox" MinWidth="200" Margin="0 0 10 0" ItemsSource="{Binding SortComboBoxItems}" SelectedItem="{Binding SortComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
+                <ComboBox BorderThickness="0" Grid.Column="1" MinWidth="200" ItemsSource="{Binding FilterComboBoxItems}" SelectedItem="{Binding FilterComboBoxSelectedItem}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="16"/>
 
             </Grid>
             <Border Grid.Row="2" Grid.Column="2"  BorderBrush="LightGray" BorderThickness="1">
                 <ScrollViewer>
                     <StackPanel Margin="10 5 10 10">
-                        <Image  VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform"  Source="{Binding SelectedCar.Image}"/>
+                        <Image VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform" MaxHeight="800" Source="{Binding SelectedCar.Image}"/>
                         <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold">Отзывы:</TextBlock>
                         <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                             <ListBox.ItemTemplate>

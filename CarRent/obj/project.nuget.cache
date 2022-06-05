@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iuBan2lWFcJnuJtFeMFEoAyg+b3jMHcXDKsvBXGXrRfOhqP6ZZa6PdlZuTCzqNajsWX2dvSsnclCQ1kwvtnkpQ==",
+  "dgSpecHash": "aHqS72lgvyNIqRkxfYptkXdz9gFXGn1pKn3IQrNlgK0WHeoVpmFIKeV3Ii5wpszcN8YnDyFFQdTrDkRxc7aorA==",
   "success": true,
   "projectFilePath": "E:\\Desktop\\car-rent\\CarRent\\CarRent.csproj",
   "expectedPackageFiles": [
@@ -33,6 +33,7 @@
     "C:\\Users\\Альберт\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Альберт\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Альберт\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Альберт\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\Альберт\\.nuget\\packages\\ookii.dialogs.wpf\\5.0.1\\ookii.dialogs.wpf.5.0.1.nupkg.sha512",
     "C:\\Users\\Альберт\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Альберт\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",

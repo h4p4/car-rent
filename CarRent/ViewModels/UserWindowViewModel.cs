@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using TaskSystem;
 
@@ -23,6 +24,14 @@ namespace CarRent.ViewModels
         private ComboBoxItem _filterComboBoxSelectedItem;
         private Car _selectedCar;
 
+        private bool _canUserEditCar;
+
+        public bool CanUserEditCar
+        {
+            get { return _canUserEditCar; }
+            set { _canUserEditCar = value; OnPropertyChanged(nameof(CanUserEditCar)); }
+        }
+
         public ObservableCollection<Rent> SelectedCarRents
         {
             get { return _selectedCarRents; }
@@ -37,10 +46,12 @@ namespace CarRent.ViewModels
         public Car SelectedCar
         {
             get { return _selectedCar; }
-            set { 
+            set
+            {
                 _selectedCar = value;
                 OnPropertyChanged(nameof(SelectedCar));
-                SelectedCarRents = new ObservableCollection<Rent>(Helper.db.Rents.Where(x => x.CarId == SelectedCar.Id));
+                if (SelectedCar != null)
+                    SelectedCarRents = new ObservableCollection<Rent>(Helper.db.Rents.Where(x => x.CarId == SelectedCar.Id));
             }
         }
         public ObservableCollection<ComboBoxItem> SortComboBoxItems
@@ -130,30 +141,26 @@ namespace CarRent.ViewModels
                     }));
             }
         }
-        //private string _isSelectedCarManipulationContextMenuEnabled;
-        //private string _isSelectedCarManipulationContextMenuVisible;
+        private RelayCommand _selectedCarBrandChanged;
+        public RelayCommand SelectedCarBrandChanged
+        {
+            get
+            {
+                return _selectedCarBrandChanged ??
+                    (_selectedCarBrandChanged = new RelayCommand(obj =>
+                    {
+                        SelectedCar.CarBrand.Title = Helper.db.CarBrands.Where(x => x.Id == SelectedCar.CarBrandId).First().Title;
+                        UpdateView();
+                    }));
+            }
+        }
+        private ObservableCollection<CarBrand> _carBrands;
 
-        //public string IsSelectedCarManipulationContextMenuEnabled
-        //{
-        //    get { return _isSelectedCarManipulationContextMenuEnabled; }
-        //    set 
-        //    { 
-        //        _isSelectedCarManipulationContextMenuEnabled = value;
-        //        OnPropertyChanged(nameof(IsSelectedCarManipulationContextMenuEnabled));
-        //        Helper.IsContextMenuEnabled = value;
-        //    }
-        //}
-        //public string IsSelectedCarManipulationContextMenuVisible
-        //{
-        //    get { return _isSelectedCarManipulationContextMenuVisible; }
-        //    set 
-        //    { 
-        //        _isSelectedCarManipulationContextMenuVisible = value;
-        //        OnPropertyChanged(nameof(IsSelectedCarManipulationContextMenuVisible));
-        //        Helper.IsContextMenuVisible = value;
-        //    }
-        //}
-
+        public ObservableCollection<CarBrand> CarBrands
+        {
+            get { return _carBrands; }
+            set { _carBrands = value; OnPropertyChanged(nameof(CarBrands)); }
+        }
 
         public UserWindowViewModel()
         {
@@ -178,7 +185,7 @@ namespace CarRent.ViewModels
             {
                 FilterComboBoxItems.Add(new ComboBoxItem { Content=carBrand.Title });
             }
-
+            CarBrands = new ObservableCollection<CarBrand>(Helper.db.CarBrands);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
