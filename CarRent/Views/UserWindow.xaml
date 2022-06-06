@@ -126,7 +126,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
                         <Grid Margin="0 0 5 0">
-                            <TextBox Name="SelectedCarBrandTBox" IsHitTestVisible="False"  Height="30" DataContext="{Binding CarBrands}" Text="{Binding ElementName=SelectedCarBrandCBox, Path=Text}"  BorderThickness="0"></TextBox>
+                            <TextBox Name="SelectedCarBrandTBox" IsHitTestVisible="False" Height="30" Text="{Binding ElementName=SelectedCarBrandCBox, Path=Text}"  BorderThickness="0"></TextBox>
                             <ComboBox ItemsSource="{Binding CarBrands}"
                                       SelectedValue="{Binding SelectedCar.CarBrandId, UpdateSourceTrigger=PropertyChanged}" 
                                       SelectedValuePath="Id" 
@@ -149,7 +149,7 @@
                     <Button  Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
                     <TextBlock FontWeight="DemiBold" Margin="0 15 0 0" Grid.ColumnSpan="3" Grid.Row="3" Height="30" HorizontalAlignment="Stretch">Характеристики:</TextBlock>
 
-                    <Grid Margin="0 5 0 0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center" DataContext="{Binding SelectedCar}">
+                    <Grid Margin="0 5 0 0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -164,10 +164,39 @@
                         <TextBlock Grid.Row="1" Height="30" FontSize="20">Объем двигателя:</TextBlock>
                         <TextBlock Grid.Row="2" Height="30" FontSize="20">Руль:</TextBlock>
                         <TextBlock Grid.Row="3" Height="30" FontSize="20">Год выпуска:</TextBlock>
-                        <TextBox Name="SelectedCarTransmissionTypeTBox" IsHitTestVisible="False" Grid.Row="0" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding TransmissionType.Title , UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="SelectedCarEngineVolumeTBox" IsHitTestVisible="False" Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding EngineVolume , UpdateSourceTrigger=LostFocus,StringFormat={}{0:#.#}}"></TextBox>
-                        <TextBox Name="SelectedCarSteeringWheelSideTBox" IsHitTestVisible="False" Grid.Row="2" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SteeringWheelSide.Title , UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="SelectedCarYearTBox" IsHitTestVisible="False" Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ReleaseYear , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <TextBox Name="SelectedCarTransmissionTypeTBox" IsHitTestVisible="False"  Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ElementName=SelectedCarTransmissionTypeCBox, Path=Text}"></TextBox>
+                            <ComboBox 
+                                      ItemsSource="{Binding TransmissionTypes}"
+                                      SelectedItem="{Binding SelectedCar.TransmissionType}"
+                                      SelectedValue="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+                                      DisplayMemberPath="Title"
+                                      Name="SelectedCarTransmissionTypeCBox" Visibility="Hidden" Width="0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedCarTransmissionTypeChanged}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+
+                        <TextBox Name="SelectedCarEngineVolumeTBox" IsHitTestVisible="False" Grid.Row="1" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SelectedCar.EngineVolume , UpdateSourceTrigger=LostFocus,StringFormat={}{0:#.#}}"></TextBox>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <TextBox Name="SelectedCarSteeringWheelSideTBox" IsHitTestVisible="False"  Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding ElementName=SelectedCarSteeringWheelSideCBox, Path=Text}"></TextBox>
+                            <ComboBox 
+                                      ItemsSource="{Binding SteeringWheelSides}"
+                                      SelectedItem="{Binding SelectedCar.SteeringWheelSide}"
+                                      SelectedValue="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+                                      DisplayMemberPath="Title"
+                                      Name="SelectedCarSteeringWheelSideCBox" Visibility="Hidden" Width="0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelecteCarSteeringWheelSideChanged}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+                        <TextBox Name="SelectedCarYearTBox" IsHitTestVisible="False" Grid.Row="3" Grid.Column="1" Height="30" Width="200" BorderThickness="0" FontSize="20" Text="{Binding SelectedCar.ReleaseYear , UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     </Grid>
 

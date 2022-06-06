@@ -94,8 +94,22 @@ namespace CarRent.Models
         }
 
         public virtual CarStatus CarStatus { get; set; } = null!;
-        public virtual SteeringWheelSide SteeringWheelSide { get; set; } = null!;
-        public virtual TransmissionType TransmissionType { get; set; } = null!;
+        
+        private SteeringWheelSide _steeringWheelSide;
+        public virtual SteeringWheelSide SteeringWheelSide
+        {
+            get { return _steeringWheelSide; }
+            set { _steeringWheelSide = value; OnPropertyChanged(nameof(SteeringWheelSide)); Helper.db.SaveChanges(); }
+        }
+
+
+        private TransmissionType _transmissionType;
+        public virtual TransmissionType TransmissionType
+        {
+            get { return _transmissionType; }
+            set { _transmissionType = value; OnPropertyChanged(nameof(TransmissionType)); Helper.db.SaveChanges(); }
+        }
+
         public virtual ICollection<Rent> Rents { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;

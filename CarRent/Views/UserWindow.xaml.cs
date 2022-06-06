@@ -94,9 +94,9 @@ namespace CarRent.Views
             CBoxCollection.Add(SelectedCarBrandCBox); //TBoxCollection.Add(SelectedCarBrandTBox);
             TBoxCollection.Add(SelectedCarTitleTBox);
             TBoxCollection.Add(SelectedCarCostTBox);
-            //TBoxCollection.Add(SelectedCarTransmissionTypeTBox);
+            CBoxCollection.Add(SelectedCarTransmissionTypeCBox); //TBoxCollection.Add(SelectedCarTransmissionTypeTBox);
             TBoxCollection.Add(SelectedCarEngineVolumeTBox);
-            //TBoxCollection.Add(SelectedCarSteeringWheelSideTBox);
+            CBoxCollection.Add(SelectedCarSteeringWheelSideCBox); //TBoxCollection.Add(SelectedCarSteeringWheelSideTBox);
             TBoxCollection.Add(SelectedCarYearTBox);
             if (canEdit)
             {

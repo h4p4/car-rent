@@ -149,17 +149,57 @@ namespace CarRent.ViewModels
                 return _selectedCarBrandChanged ??
                     (_selectedCarBrandChanged = new RelayCommand(obj =>
                     {
-                        SelectedCar.CarBrand.Title = Helper.db.CarBrands.Where(x => x.Id == SelectedCar.CarBrandId).First().Title;
+                        //if (SelectedCar != null)
+                        //    SelectedCar.CarBrand.Title = Helper.db.CarBrands.Where(x => x.Id == SelectedCar.CarBrandId).First().Title;
                         UpdateView();
                     }));
             }
         }
-        private ObservableCollection<CarBrand> _carBrands;
+        private RelayCommand _selectedCarTransmissionTypeChanged;
+        public RelayCommand SelectedCarTransmissionTypeChanged
+        {
+            get
+            {
+                return _selectedCarTransmissionTypeChanged ??
+                    (_selectedCarTransmissionTypeChanged = new RelayCommand(obj =>
+                    {
+                        //SelectedCar.CarBrand.Title = Helper.db.CarBrands.Where(x => x.Id == SelectedCar.CarBrandId).First().Title;
+                        //UpdateView();
+                    }));
+            }
+        }
+        private RelayCommand _selecteCarSteeringWheelSideChanged;
+        public RelayCommand SelecteCarSteeringWheelSideChanged
+        {
+            get
+            {
+                return _selecteCarSteeringWheelSideChanged ??
+                    (_selecteCarSteeringWheelSideChanged = new RelayCommand(obj =>
+                    {
+                        //SelectedCar.CarBrand.Title = Helper.db.CarBrands.Where(x => x.Id == SelectedCar.CarBrandId).First().Title;
+                        //UpdateView();
+                    }));
+            }
+        }
 
+        private ObservableCollection<CarBrand> _carBrands;
         public ObservableCollection<CarBrand> CarBrands
         {
             get { return _carBrands; }
             set { _carBrands = value; OnPropertyChanged(nameof(CarBrands)); }
+        }        
+
+        private ObservableCollection<TransmissionType> _transmissionTypes;
+        public ObservableCollection<TransmissionType> TransmissionTypes
+        {
+            get { return _transmissionTypes; }
+            set { _transmissionTypes = value; OnPropertyChanged(nameof(TransmissionTypes)); }
+        }
+        private ObservableCollection<SteeringWheelSide> _steeringWheelSides;
+        public ObservableCollection<SteeringWheelSide> SteeringWheelSides
+        {
+            get { return _steeringWheelSides; }
+            set { _steeringWheelSides = value; OnPropertyChanged(nameof(SteeringWheelSide)); }
         }
 
         public UserWindowViewModel()
@@ -185,7 +225,9 @@ namespace CarRent.ViewModels
             {
                 FilterComboBoxItems.Add(new ComboBoxItem { Content=carBrand.Title });
             }
+            TransmissionTypes = new ObservableCollection<TransmissionType>(Helper.db.TransmissionTypes);
             CarBrands = new ObservableCollection<CarBrand>(Helper.db.CarBrands);
+            SteeringWheelSides = new ObservableCollection<SteeringWheelSide>(Helper.db.SteeringWheelSides);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
