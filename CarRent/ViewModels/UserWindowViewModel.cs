@@ -35,7 +35,10 @@ namespace CarRent.ViewModels
         public ObservableCollection<Rent> SelectedCarRents
         {
             get { return _selectedCarRents; }
-            set { _selectedCarRents = value; OnPropertyChanged(nameof(SelectedCarRents)); }
+            set { 
+                _selectedCarRents = value; 
+                OnPropertyChanged(nameof(SelectedCarRents)); 
+            }
         }
 
         public ObservableCollection<Car> CarListCollection
@@ -63,7 +66,12 @@ namespace CarRent.ViewModels
         public ComboBoxItem SortComboBoxSelectedItem
         {
             get { return _sortComboBoxSelectedItem; }
-            set { _sortComboBoxSelectedItem = value; OnPropertyChanged(nameof(SortComboBoxSelectedItem)); UpdateView(); }
+            set 
+            {
+                _sortComboBoxSelectedItem = value;
+                OnPropertyChanged(nameof(SortComboBoxSelectedItem)); 
+                UpdateView(); 
+            }
         }
         public ObservableCollection<ComboBoxItem> FilterComboBoxItems
         {
@@ -75,14 +83,23 @@ namespace CarRent.ViewModels
         public ComboBoxItem FilterComboBoxSelectedItem
         {
             get { return _filterComboBoxSelectedItem; }
-            set { _filterComboBoxSelectedItem = value; OnPropertyChanged(nameof(FilterComboBoxSelectedItem)); UpdateView(); }
+            set 
+            { 
+                _filterComboBoxSelectedItem = value; 
+                OnPropertyChanged(nameof(FilterComboBoxSelectedItem));
+                UpdateView();
+            }
         }
         private string _searchedText;
 
         public string SearchedText
         {
             get { return _searchedText; }
-            set { _searchedText = value; OnPropertyChanged(nameof(SearchedText)); UpdateView(); }
+            set { 
+                _searchedText = value;
+                OnPropertyChanged(nameof(SearchedText)); 
+                UpdateView();
+            }
         }
 
 

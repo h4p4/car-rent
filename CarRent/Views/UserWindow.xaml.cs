@@ -45,6 +45,18 @@ namespace CarRent.Views
         private void CarList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ChangeSelectedCarBorderVisability();
+            ChangeSelectedCarReviewListBoxVisability();
+        }
+        private void ChangeSelectedCarReviewListBoxVisability()
+        {
+            if (CarList.SelectedIndex == -1)
+            {
+                CarReviewListBox.Visibility = Visibility.Hidden;
+                ReviewTBlock.Visibility = Visibility.Hidden;
+                return;
+            }
+            CarReviewListBox.Visibility = Visibility.Visible;
+            ReviewTBlock.Visibility = Visibility.Visible;
         }
         private void ChangeSelectedCarBorderVisability()
         {
@@ -101,16 +113,19 @@ namespace CarRent.Views
             if (canEdit)
             {
                 // can edit
+                ChangeEditableElementsVisability(canEdit, SelectCarPicBtn);
+
                 foreach (var cbox in CBoxCollection)
-                    ChangeEditableElementsVisability(true, cbox);
+                    ChangeEditableElementsVisability(canEdit, cbox);
                 foreach (var tbox in TBoxCollection)
-                    ChangeEditableElementsVisability(true, 1, tbox);
+                    ChangeEditableElementsVisability(canEdit, 1, tbox);
                 return;
             }
+            ChangeEditableElementsVisability(canEdit, SelectCarPicBtn);
             foreach (var cbox in CBoxCollection)
-                ChangeEditableElementsVisability(false, cbox);
+                ChangeEditableElementsVisability(canEdit, cbox);
             foreach (var tbox in TBoxCollection)
-                ChangeEditableElementsVisability(false, 0, tbox);
+                ChangeEditableElementsVisability(canEdit, 0, tbox);
             // cant edit 
 
         }
@@ -118,6 +133,14 @@ namespace CarRent.Views
         {
             textBox.IsHitTestVisible = isTrue;
             textBox.BorderThickness = new Thickness(BorderThickness);
+        }              
+        private void ChangeEditableElementsVisability(bool isTrue, Button button)
+        {
+            button.Visibility = Visibility.Hidden;
+            if (isTrue)
+            {
+                button.Visibility = Visibility.Visible;
+            }
         }        
         private void ChangeEditableElementsVisability(bool isTrue, ComboBox comboBox)
         {
@@ -136,6 +159,52 @@ namespace CarRent.Views
             EditCarCheckableMenuItem.IsChecked = false;
             _canUserEditCar = false;
             ChangeEditableElements(_canUserEditCar);
+            CarListAndBorderVisabilityChange(false);
+        }
+
+        private void AddNewCarMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //CarList.SelectedIndex = -1;
+            //CarList.IsEnabled = false;
+            //SelectedCarVisabilityBorder.Visibility = Visibility.Hidden;
+
+            CarListAndBorderVisabilityChange(true);
+        }
+
+        private void CancelAddCarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CarListAndBorderVisabilityChange(false);
+        }
+
+        private void AddAddCarBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void CarListAndBorderVisabilityChange(bool isVisible)
+        {
+            CarList.SelectedIndex = -1;
+            if (isVisible)
+            {
+                CarList.IsEnabled = !isVisible;
+                RentBtn.Visibility = Visibility.Hidden;
+                AddAddCarBtn.Visibility = Visibility.Visible;
+                CancelAddCarBtn.Visibility = Visibility.Visible;
+                SelectedCarVisabilityBorder.Visibility = Visibility.Hidden;
+                SelectedCarBrandCBox.MinWidth = 96;
+                SelectedCarTitleTBox.MinWidth = 96;
+                SelectedCarCostTBox.MinWidth = 96;
+                ChangeEditableElements(true);
+                return;
+            }
+            CarList.IsEnabled = !isVisible;
+            RentBtn.Visibility = Visibility.Visible;
+            AddAddCarBtn.Visibility = Visibility.Hidden;
+            CancelAddCarBtn.Visibility = Visibility.Hidden;
+            SelectedCarVisabilityBorder.Visibility = Visibility.Visible;
+            SelectedCarBrandCBox.MinWidth = 0;
+            SelectedCarTitleTBox.MinWidth = 0;
+            SelectedCarCostTBox.MinWidth = 0;
+            ChangeEditableElements(false);
         }
     }
 }

@@ -62,10 +62,10 @@
             <ListBox BorderBrush="LightGray" SelectionChanged="CarList_SelectionChanged" Grid.Row="2"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False" MinWidth="325">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="SelectedCarManipulationContextMenu" IsEnabled="False" Visibility="Hidden">
-                        <MenuItem Header="Добавить" Command="{Binding AddNewCarCommand}"></MenuItem>
+                        <MenuItem Header="Добавить" Name="AddNewCarMenuItem" Click="AddNewCarMenuItem_Click" Command="{Binding AddNewCarCommand}"></MenuItem>
                         <MenuItem Header="Редактировать" IsCheckable="True" Name="EditCarCheckableMenuItem" IsChecked="{Binding CanUserEditCar, UpdateSourceTrigger=PropertyChanged}" Checked="EditCarCheckableMenuItem_Checked" Unchecked="EditCarCheckableMenuItem_Unchecked" Command="{Binding EditCarCommand}"></MenuItem>
                         <Separator/>
-                        <MenuItem Header="Удалить" Command="{Binding DeleteCarCommand}"></MenuItem>
+                        <MenuItem Header="Удалить" Name="DeleteCarMenuItem" Command="{Binding DeleteCarCommand}"></MenuItem>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemContainerStyle>
@@ -146,7 +146,9 @@
                         <TextBox Name="SelectedCarCostTBox" IsHitTestVisible="False" Height="30" BorderThickness="0" Margin="0 0 5 0" DataContext="{Binding SelectedCar}" Text="{Binding CostPerDay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBlock>рублей в день</TextBlock>
                     </StackPanel>
-                    <Button  Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
+                    <Button Name="RentBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
+                    <Button Name="AddAddCarBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="0 0 15 0" Click="AddAddCarBtn_Click" Visibility="Hidden">Добавить</Button>
+                    <Button Name="CancelAddCarBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Right" Margin="0 0 15 0" Click="CancelAddCarBtn_Click" Visibility="Hidden">Отмена</Button>
                     <TextBlock FontWeight="DemiBold" Margin="0 15 0 0" Grid.ColumnSpan="3" Grid.Row="3" Height="30" HorizontalAlignment="Stretch">Характеристики:</TextBlock>
 
                     <Grid Margin="0 5 0 0" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" HorizontalAlignment="Center">
@@ -215,12 +217,19 @@
             <Border Grid.Row="2" Grid.Column="2"  BorderBrush="LightGray" BorderThickness="1">
                 <ScrollViewer>
                     <StackPanel Margin="10 5 10 10">
-                        <Image VerticalAlignment="Top" HorizontalAlignment="Center" Stretch="Uniform" MaxHeight="800" Source="{Binding SelectedCar.Image}"/>
-                        <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold">Отзывы:</TextBlock>
-                        <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="3">
+                            <Grid>
+                                <Image  Stretch="Uniform" MaxHeight="800" Source="{Binding SelectedCar.Image}"/>
+                                <Button Name="SelectCarPicBtn" Height="80" Width="80" FontSize="50" 
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                        Visibility="Hidden">➕</Button>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold" Name="ReviewTBlock" Visibility="Hidden">Отзывы:</TextBlock>
+                        <ListBox Name="CarReviewListBox" Visibility="Hidden" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents, UpdateSourceTrigger=PropertyChanged}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="LightGray" BorderThickness="0 0 0 1"  Margin="0 0 0 5" Padding="0 0 0 5" Height="Auto" >
+                                    <Border  BorderBrush="LightGray" BorderThickness="0 0 0 1"  Margin="0 0 0 5" Padding="0 0 0 5" Height="Auto" >
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
