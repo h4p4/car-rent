@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CarRent.Models
 {
@@ -68,7 +73,34 @@ namespace CarRent.Models
             set { _releaseYear = value; OnPropertyChanged(nameof(ReleaseYear)); Helper.db.SaveChanges(); }
         }
 
-        public string? Image { get; set; }
+        private string? _image;
+
+        public string? Image
+        {
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(nameof(Image)); Helper.db.SaveChanges(); }
+        }
+
+        private BitmapImage? _imagePicture;
+
+        [NotMapped]
+        public BitmapImage? ImagePicture
+        {
+            get
+            {
+                if (Image == null) return null;
+                return _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
+            }
+            set
+            {
+                _imagePicture = value;
+                OnPropertyChanged(nameof(ImagePicture));
+                //if (Image == null) return;
+                //_imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
+            }
+        }
+
+
 
         private decimal _costPerDay;
         public decimal CostPerDay

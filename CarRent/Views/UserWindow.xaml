@@ -62,7 +62,7 @@
             <ListBox BorderBrush="LightGray" SelectionChanged="CarList_SelectionChanged" Grid.Row="2"  Name="CarList" Grid.Column="0" SelectedItem="{Binding SelectedCar}" ItemsSource="{Binding CarListCollection, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.CanContentScroll="False" MinWidth="325">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="SelectedCarManipulationContextMenu" IsEnabled="False" Visibility="Hidden">
-                        <MenuItem Header="Добавить" Name="AddNewCarMenuItem" Click="AddNewCarMenuItem_Click" Command="{Binding AddNewCarCommand}"></MenuItem>
+                        <MenuItem Header="Добавить" Name="AddNewCarMenuItem" Click="AddNewCarMenuItem_Click" Command="{Binding CreateNewCarCommand}"></MenuItem>
                         <MenuItem Header="Редактировать" IsCheckable="True" Name="EditCarCheckableMenuItem" IsChecked="{Binding CanUserEditCar, UpdateSourceTrigger=PropertyChanged}" Checked="EditCarCheckableMenuItem_Checked" Unchecked="EditCarCheckableMenuItem_Unchecked" Command="{Binding EditCarCommand}"></MenuItem>
                         <Separator/>
                         <MenuItem Header="Удалить" Name="DeleteCarMenuItem" Command="{Binding DeleteCarCommand}"></MenuItem>
@@ -101,7 +101,7 @@
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
-                                <Image VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Image}"/>
+                                <Image VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Stretch="UniformToFill" Margin="5 10" Source="{Binding Path=ImagePicture}"/>
                                 <!--<Grid.Background>
                                 <ImageBrush  Stretch="UniformToFill" AlignmentY="Center"  ImageSource="{Binding Image}"></ImageBrush>
                             </Grid.Background>-->
@@ -147,7 +147,7 @@
                         <TextBlock>рублей в день</TextBlock>
                     </StackPanel>
                     <Button Name="RentBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Stretch" Margin="0 0 15 0">Забронировать</Button>
-                    <Button Name="AddAddCarBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="0 0 15 0" Click="AddAddCarBtn_Click" Visibility="Hidden">Добавить</Button>
+                    <Button Command="{Binding AddNewCarCommand}" Name="AddAddCarBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Left" Margin="0 0 15 0" Click="AddAddCarBtn_Click" Visibility="Hidden">Добавить</Button>
                     <Button Name="CancelAddCarBtn" Grid.ColumnSpan="3" Grid.Row="2" Height="30" HorizontalAlignment="Right" Margin="0 0 15 0" Click="CancelAddCarBtn_Click" Visibility="Hidden">Отмена</Button>
                     <TextBlock FontWeight="DemiBold" Margin="0 15 0 0" Grid.ColumnSpan="3" Grid.Row="3" Height="30" HorizontalAlignment="Stretch">Характеристики:</TextBlock>
 
@@ -219,10 +219,11 @@
                     <StackPanel Margin="10 5 10 10">
                         <Border VerticalAlignment="Top" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="3">
                             <Grid>
-                                <Image  Stretch="Uniform" MaxHeight="800" Source="{Binding SelectedCar.Image}"/>
+                                <Image  Stretch="Uniform" MaxHeight="800" Source="{Binding Path=SelectedCar.ImagePicture, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Button Name="SelectCarPicBtn" Height="80" Width="80" FontSize="50" 
                                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                        Visibility="Hidden">➕</Button>
+                                        Visibility="Hidden"
+                                        Command="{Binding ChangeSelectedCarPictureCommand}">➕</Button>
                             </Grid>
                         </Border>
                         <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold" Name="ReviewTBlock" Visibility="Hidden">Отзывы:</TextBlock>

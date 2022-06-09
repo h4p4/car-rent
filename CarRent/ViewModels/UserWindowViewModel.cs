@@ -1,15 +1,19 @@
 ﻿using CarRent.Models;
 using CarRent.Views;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using TaskSystem;
 
 namespace CarRent.ViewModels
@@ -35,16 +39,18 @@ namespace CarRent.ViewModels
         public ObservableCollection<Rent> SelectedCarRents
         {
             get { return _selectedCarRents; }
-            set { 
+            set
+            { 
                 _selectedCarRents = value; 
-                OnPropertyChanged(nameof(SelectedCarRents)); 
+                OnPropertyChanged(nameof(SelectedCarRents));
+                Helper.db.SaveChanges();
             }
         }
 
         public ObservableCollection<Car> CarListCollection
         {
             get { return _carListCollection; }
-            set { _carListCollection = value; OnPropertyChanged(nameof(CarListCollection)); }
+            set { _carListCollection = value; OnPropertyChanged(nameof(CarListCollection)); Helper.db.SaveChanges(); }
         }
         public Car SelectedCar
         {
@@ -198,7 +204,96 @@ namespace CarRent.ViewModels
                     }));
             }
         }
+        private RelayCommand _createNewCarCommand;
+        public RelayCommand CreateNewCarCommand
+        {
+            get
+            {
+                return _createNewCarCommand ??
+                    (_createNewCarCommand = new RelayCommand(obj =>
+                    {
+                        SelectedCar = new Car() { CarStatusId = 1 };
+                    }));
+            }
+        }
 
+        private RelayCommand _addNewCarCommand;
+        public RelayCommand AddNewCarCommand
+        {
+            get
+            {
+                return _addNewCarCommand ??
+                    (_addNewCarCommand = new RelayCommand(obj =>
+                    {
+                        try
+                        {
+                            Helper.db.Cars.Add(SelectedCar);
+                            Helper.db.SaveChanges();
+                            SelectedCar = null;
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Не удалось добавить авто в базу данных!\nНеправильный формат ввода.", "Wrong format", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+
+                    }));
+            }
+        }
+        private RelayCommand _deleteCarCommand;
+        public RelayCommand DeleteCarCommand
+        {
+            get
+            {
+                return _deleteCarCommand ??
+                    (_deleteCarCommand = new RelayCommand(obj =>
+                    {
+                        if (SelectedCar != null)
+                        {
+                            Helper.db.Rents.RemoveRange(SelectedCarRents);
+                            Helper.db.Cars.Remove(SelectedCar);
+                            OnPropertyChanged(nameof(CarListCollection));
+                            UpdateView();
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _changeSelectedCarPictureCommand;
+        public RelayCommand ChangeSelectedCarPictureCommand
+        {
+            get
+            {
+                return _changeSelectedCarPictureCommand ??
+                    (_changeSelectedCarPictureCommand = new RelayCommand(obj =>
+                    {
+                        string fileName;
+                        string newName;
+                        var binDir = Environment.CurrentDirectory;
+                        var imageDir = Directory.GetParent(binDir).Parent.Parent.FullName + "\\Images";
+                        // CarRent\\Images
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+                        openFileDialog.Multiselect = false;
+                        if (openFileDialog.ShowDialog() == true)
+                        {
+                            var name = openFileDialog.SafeFileName;
+                            fileName = openFileDialog.FileName;
+                            newName = imageDir + "\\" + name;
+                            try
+                            {
+                                File.Copy(fileName, newName, true);
+                            }
+                            catch (Exception) { }
+                            finally
+                            {
+                                SelectedCar.Image = "/Images/" + name;
+                                SelectedCar.ImagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Images\\" + name));
+                                OnPropertyChanged(nameof(Car.Image));
+                                UpdateView();
+                            }
+                        }
+                    }));
+            }
+        }
         private ObservableCollection<CarBrand> _carBrands;
         public ObservableCollection<CarBrand> CarBrands
         {
@@ -255,5 +350,6 @@ namespace CarRent.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
             }
         }
+
     }
 }

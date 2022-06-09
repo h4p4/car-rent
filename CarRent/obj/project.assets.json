@@ -246,7 +246,7 @@
           "lib/netstandard2.1/Microsoft.Extensions.Logging.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
+      "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
         "type": "package",
         "compile": {
           "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
@@ -255,6 +255,7 @@
           "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
         },
         "build": {
+          "build/Microsoft.Extensions.Logging.Abstractions.targets": {},
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
@@ -1067,10 +1068,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Logging.Abstractions/6.0.0": {
-      "sha512": "/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA==",
+    "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
+      "sha512": "dzB2Cgg+JmrouhjkcQGzSFjjvpwlq353i8oBQO2GWNjCXSzhbtBRUf28HSauWe7eib3wYOdb3tItdjRwAdwCSg==",
       "type": "package",
-      "path": "microsoft.extensions.logging.abstractions/6.0.0",
+      "path": "microsoft.extensions.logging.abstractions/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1114,7 +1115,7 @@
         "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512",
         "microsoft.extensions.logging.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -1931,28 +1932,29 @@
       "Microsoft.EntityFrameworkCore.Design >= 6.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.5",
+      "Microsoft.Extensions.Logging.Abstractions >= 6.0.1",
       "Microsoft.Xaml.Behaviors.Wpf >= 1.1.39",
       "Ookii.Dialogs.Wpf >= 5.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gr613_zaani\\.nuget\\packages\\": {},
+    "C:\\Users\\Альберт\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Z:\\1 курс\\2 семестр\\ПиДИС\\car-rent\\CarRent\\CarRent.csproj",
+      "projectUniqueName": "E:\\Desktop\\car-rent\\CarRent\\CarRent.csproj",
       "projectName": "CarRent",
-      "projectPath": "Z:\\1 курс\\2 семестр\\ПиДИС\\car-rent\\CarRent\\CarRent.csproj",
-      "packagesPath": "C:\\Users\\gr613_zaani\\.nuget\\packages\\",
-      "outputPath": "Z:\\1 курс\\2 семестр\\ПиДИС\\car-rent\\CarRent\\obj\\",
+      "projectPath": "E:\\Desktop\\car-rent\\CarRent\\CarRent.csproj",
+      "packagesPath": "C:\\Users\\Альберт\\.nuget\\packages\\",
+      "outputPath": "E:\\Desktop\\car-rent\\CarRent\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\gr613_zaani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Альберт\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1998,6 +2000,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.5, )"
+          },
+          "Microsoft.Extensions.Logging.Abstractions": {
+            "target": "Package",
+            "version": "[6.0.1, )"
           },
           "Microsoft.Xaml.Behaviors.Wpf": {
             "target": "Package",

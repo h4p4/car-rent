@@ -178,10 +178,12 @@ namespace CarRent.Views
 
         private void AddAddCarBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (CarList.SelectedIndex == -1)
+                CarListAndBorderVisabilityChange(false);
         }
         private void CarListAndBorderVisabilityChange(bool isVisible)
         {
+            EditCarCheckableMenuItem.IsChecked = false;
             CarList.SelectedIndex = -1;
             if (isVisible)
             {

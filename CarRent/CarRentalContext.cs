@@ -78,7 +78,7 @@ namespace CarRent
                 entity.HasOne(d => d.Car)
                     .WithMany(p => p.Rents)
                     .HasForeignKey(d => d.CarId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Rents_Cars");
 
                 entity.HasOne(d => d.Renter)
