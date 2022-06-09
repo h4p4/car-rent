@@ -287,20 +287,36 @@ namespace CarRent.ViewModels
                             try
                             {
                                 File.Copy(fileName, newName, true);
-                                File.Delete(fileName);
                             }
                             catch (Exception) { }
                             finally
                             {
+                                var oldFile = (Directory.GetParent(binDir).Parent.Parent.FullName + _selectedCar.Image).Replace("/", "\\");
                                 SelectedCar.Image = "/Images/" + name;
                                 SelectedCar.ImagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Images\\" + name));
                                 OnPropertyChanged(nameof(Car.Image));
                                 UpdateView();
+                                GC.Collect();
+                                GC.WaitForPendingFinalizers();
+
+
+                                // Раскоментить когда пойму как сделать так чтобы этот файл не использовался
+                                //File.Delete(oldFile);
+
+
+
+                                //DeleteOldPic(oldFile);
                             }
                         }
                     }));
             }
         }
+        //private async void DeleteOldPic(string oldFile)
+        //{
+        //    await Task.Delay(20000);
+        //    File.Delete(oldFile);
+
+        //}
         private ObservableCollection<CarBrand> _carBrands;
         public ObservableCollection<CarBrand> CarBrands
         {

@@ -88,15 +88,14 @@ namespace CarRent.Models
         {
             get
             {
-                if (Image == null) return null;
+                if (_image == null) return null;
                 return _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
             }
             set
             {
-                _imagePicture = value;
-                OnPropertyChanged(nameof(ImagePicture));
-                //if (Image == null) return;
+                _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
                 //_imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
+                OnPropertyChanged(nameof(ImagePicture));
             }
         }
 
