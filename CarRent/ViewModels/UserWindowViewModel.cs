@@ -50,7 +50,12 @@ namespace CarRent.ViewModels
         public ObservableCollection<Car> CarListCollection
         {
             get { return _carListCollection; }
-            set { _carListCollection = value; OnPropertyChanged(nameof(CarListCollection)); Helper.db.SaveChanges(); }
+            set 
+            {
+                _carListCollection = value; 
+                OnPropertyChanged(nameof(CarListCollection)); 
+                Helper.db.SaveChanges();
+            }
         }
         public Car SelectedCar
         {
@@ -249,8 +254,9 @@ namespace CarRent.ViewModels
                     {
                         if (SelectedCar != null)
                         {
-                            Helper.db.Rents.RemoveRange(SelectedCarRents);
+                            //CarListCollection.Remove(SelectedCar);
                             Helper.db.Cars.Remove(SelectedCar);
+                            SelectedCar = null;
                             OnPropertyChanged(nameof(CarListCollection));
                             UpdateView();
                         }
@@ -275,12 +281,13 @@ namespace CarRent.ViewModels
                         openFileDialog.Multiselect = false;
                         if (openFileDialog.ShowDialog() == true)
                         {
-                            var name = openFileDialog.SafeFileName;
+                            var name = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss__") + openFileDialog.SafeFileName;
                             fileName = openFileDialog.FileName;
                             newName = imageDir + "\\" + name;
                             try
                             {
                                 File.Copy(fileName, newName, true);
+                                File.Delete(fileName);
                             }
                             catch (Exception) { }
                             finally
