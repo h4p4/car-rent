@@ -271,9 +271,21 @@ namespace CarRent.ViewModels
                 return _changeSelectedCarPictureCommand ??
                     (_changeSelectedCarPictureCommand = new RelayCommand(obj =>
                     {
+
+
                         string fileName;
                         string newName;
                         var binDir = Environment.CurrentDirectory;
+
+                        var oldFile = (Directory.GetParent(binDir).Parent.Parent.FullName + _selectedCar.Image).Replace("/", "\\");
+
+
+                        SelectedCar.Image = "/Images/default-car.png";
+                        SelectedCar.ImagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Images\\default-car.png"));
+                        Helper.db.SaveChanges();
+                        UpdateView();
+
+
                         var imageDir = Directory.GetParent(binDir).Parent.Parent.FullName + "\\Images";
                         // CarRent\\Images
                         OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -291,20 +303,22 @@ namespace CarRent.ViewModels
                             catch (Exception) { }
                             finally
                             {
-                                var oldFile = (Directory.GetParent(binDir).Parent.Parent.FullName + _selectedCar.Image).Replace("/", "\\");
+
                                 SelectedCar.Image = "/Images/" + name;
                                 SelectedCar.ImagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Images\\" + name));
                                 OnPropertyChanged(nameof(Car.Image));
                                 UpdateView();
+
                                 GC.Collect();
                                 GC.WaitForPendingFinalizers();
 
-
-                                // Раскоментить когда пойму как сделать так чтобы этот файл не использовался
-                                //File.Delete(oldFile);
-
-
-
+                                try
+                                {
+                                    File.Delete(oldFile);
+                                }
+                                catch (Exception)
+                                {
+                                }
                                 //DeleteOldPic(oldFile);
                             }
                         }
@@ -315,7 +329,6 @@ namespace CarRent.ViewModels
         //{
         //    await Task.Delay(20000);
         //    File.Delete(oldFile);
-
         //}
         private ObservableCollection<CarBrand> _carBrands;
         public ObservableCollection<CarBrand> CarBrands
