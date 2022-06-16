@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 E:\Desktop\car-rent\CarRent\App.xaml
-31574775045
+4-1363571664
 
-17-1265533167
+19-1363348939
 225-373773958
-Views\AdminWindow.xaml;Views\StartWindow.xaml;Views\UserWindow.xaml;
+Views\AdminWindow.xaml;Views\RentWindow.xaml;Views\StartWindow.xaml;Views\UserWindow.xaml;
 
 False
 

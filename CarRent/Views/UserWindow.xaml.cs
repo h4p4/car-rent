@@ -25,14 +25,43 @@ namespace CarRent.Views
         {
             InitializeComponent();
             Helper.IsCurrentUserAdmin = false;
+
+            bool continueLoadTrying = true;
+            while (continueLoadTrying)
+            {
+                try
+                {
+                    LoadData();
+                    continueLoadTrying = false;
+                }
+                catch (Exception)
+                {
+                    continueLoadTrying = true;
+                    var result = MessageBox.Show(
+                        "Не удалось подключиться к базе данных.\nПовторить попытку?",
+                        "Warning",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Error
+                        );
+                    if (result == MessageBoxResult.No)
+                    {
+                        continueLoadTrying = false;
+                        Application.Current.Shutdown();
+                    }
+                }
+            }
+
+            SortComboBox.SelectedIndex = 1;
+            ChangeSelectedCarBorderVisability();
+        }
+        private void LoadData()
+        {
             this.DataContext = new UserWindowViewModel();
             Helper.db.CarBrands.Load();
             Helper.db.SteeringWheelSides.Load();
             Helper.db.TransmissionTypes.Load();
             Helper.db.Rents.Load();
             Helper.db.Renters.Load();
-            SortComboBox.SelectedIndex = 1;
-            ChangeSelectedCarBorderVisability();
         }
 
         private void SearchTBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -176,3 +176,5 @@ E:\Desktop\car-rent\CarRent\bin\Debug\net6.0-windows\Microsoft.Xaml.Behaviors.dl
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\Microsoft.Xaml.Behaviors.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\ref\CarRent.dll
+E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.g.cs
+E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.baml

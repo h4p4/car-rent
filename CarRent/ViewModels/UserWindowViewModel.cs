@@ -65,8 +65,12 @@ namespace CarRent.ViewModels
                 _selectedCar = value;
                 OnPropertyChanged(nameof(SelectedCar));
                 if (SelectedCar != null)
-                    SelectedCarRents = new ObservableCollection<Rent>(Helper.db.Rents.Where(x => x.CarId == SelectedCar.Id));
+                    UpdateReviewList();
             }
+        }
+        private void UpdateReviewList()
+        {
+            SelectedCarRents = new ObservableCollection<Rent>(Helper.db.Rents.Where(x => x.CarId == SelectedCar.Id && !String.IsNullOrWhiteSpace(x.Review)));
         }
         public ObservableCollection<ComboBoxItem> SortComboBoxItems
         {
@@ -102,7 +106,6 @@ namespace CarRent.ViewModels
             }
         }
         private string _searchedText;
-
         public string SearchedText
         {
             get { return _searchedText; }
@@ -260,6 +263,19 @@ namespace CarRent.ViewModels
                             OnPropertyChanged(nameof(CarListCollection));
                             UpdateView();
                         }
+                    }));
+            }
+        }
+        private RelayCommand _rentCarCommand;
+        public RelayCommand RentCarCommand
+        {
+            get
+            {
+                return _rentCarCommand ??
+                    (_rentCarCommand = new RelayCommand(obj =>
+                    {
+                        RentWindow rentWindow = new RentWindow(SelectedCar);
+                        rentWindow.ShowDialog();
                     }));
             }
         }

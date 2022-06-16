@@ -89,7 +89,14 @@ namespace CarRent.Models
             get
             {
                 if (_image == null) return null;
-                return _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
+                try
+                {
+                    return _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + Image));
+                }
+                catch (System.IO.FileNotFoundException)
+                {
+                    return _imagePicture = new BitmapImage(new Uri(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Images\\default-car.png"));
+                }
             }
             set
             {

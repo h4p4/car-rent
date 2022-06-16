@@ -1,0 +1,42 @@
+﻿<Window x:Class="CarRent.Views.RentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarRent.Views"
+        mc:Ignorable="d"
+        Title="RentWindow" Height="280" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Margin="30 15 30 0"  HorizontalAlignment="Left" Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Ваш номер телефона (без +7):" FontSize="15"/>
+                <TextBox Text="{Binding RenterPhoneNumber, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0" Height="30"/>
+                <TextBlock Text="Ваше имя (при первом бронировании):" FontSize="15"/>
+                <TextBox Text="{Binding RenterName, UpdateSourceTrigger=PropertyChanged}" Margin="0 10 0 0" Height="30"/>
+            </StackPanel>
+            <Border BorderBrush="LightGray" BorderThickness="1 0 0 0" Margin="6 0"/>
+            <StackPanel>
+                <TextBlock Text="Количество дней:" FontSize="15"/>
+                <ComboBox SelectedIndex="{Binding SelectedDaysCount, UpdateSourceTrigger=PropertyChanged}" MaxDropDownHeight="100" FontSize="15" Name="DaysCountCBox" Margin="0 10 0 0" Height="29" HorizontalContentAlignment="Left" ItemsSource="{Binding DaysCountItemSource}"/>
+                <TextBlock Text="Итого к оплате:" FontSize="15"/>
+                <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding FullPrice, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock Text=" руб" FontSize="20" FontWeight="SemiBold"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        
+        <Button Command="{Binding RentCarCommand}" Grid.Row="1" Name="RentBtn" Margin="30" Content="Забронировать" FontSize="20"/>
+        <Button Grid.Row="1" Grid.Column="1" Name="CancelBtn" Margin="30" Content="Отмена" FontSize="20"/>
+    </Grid>
+</Window>
