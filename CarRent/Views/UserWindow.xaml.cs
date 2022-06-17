@@ -78,14 +78,15 @@ namespace CarRent.Views
         }
         private void ChangeSelectedCarReviewListBoxVisability()
         {
+            ReviewTBox.Text = String.Empty;
             if (CarList.SelectedIndex == -1)
             {
                 CarReviewListBox.Visibility = Visibility.Hidden;
-                ReviewTBlock.Visibility = Visibility.Hidden;
+                ReviewsTBlock.Visibility = Visibility.Hidden;
                 return;
             }
             CarReviewListBox.Visibility = Visibility.Visible;
-            ReviewTBlock.Visibility = Visibility.Visible;
+            ReviewsTBlock.Visibility = Visibility.Visible;
         }
         private void ChangeSelectedCarBorderVisability()
         {
@@ -217,6 +218,7 @@ namespace CarRent.Views
             if (isVisible)
             {
                 CarList.IsEnabled = !isVisible;
+                SendReviewBtn.IsEnabled = !isVisible;
                 RentBtn.Visibility = Visibility.Hidden;
                 AddAddCarBtn.Visibility = Visibility.Visible;
                 CancelAddCarBtn.Visibility = Visibility.Visible;
@@ -228,6 +230,7 @@ namespace CarRent.Views
                 return;
             }
             CarList.IsEnabled = !isVisible;
+            SendReviewBtn.IsEnabled = !isVisible;
             RentBtn.Visibility = Visibility.Visible;
             AddAddCarBtn.Visibility = Visibility.Hidden;
             CancelAddCarBtn.Visibility = Visibility.Hidden;
@@ -236,6 +239,13 @@ namespace CarRent.Views
             SelectedCarTitleTBox.MinWidth = 0;
             SelectedCarCostTBox.MinWidth = 0;
             ChangeEditableElements(false);
+        }
+
+        private void ReviewTBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ReviewTBlock.Visibility = Visibility.Visible;
+            if (String.IsNullOrWhiteSpace(ReviewTBox.Text)) return;
+            ReviewTBlock.Visibility = Visibility.Hidden;
         }
     }
 }

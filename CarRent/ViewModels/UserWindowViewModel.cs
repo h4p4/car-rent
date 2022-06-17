@@ -279,6 +279,19 @@ namespace CarRent.ViewModels
                     }));
             }
         }
+        private RelayCommand _sendReviewCommand;
+        public RelayCommand SendReviewCommand
+        {
+            get
+            {
+                return _sendReviewCommand ??
+                    (_sendReviewCommand = new RelayCommand(obj =>
+                    {
+                        SendReviewWindow reviewWindow = new SendReviewWindow(SelectedCar, ReviewText);
+                        reviewWindow.ShowDialog();
+                    }));
+            }
+        }
         private RelayCommand _changeSelectedCarPictureCommand;
         public RelayCommand ChangeSelectedCarPictureCommand
         {
@@ -364,6 +377,13 @@ namespace CarRent.ViewModels
         {
             get { return _steeringWheelSides; }
             set { _steeringWheelSides = value; OnPropertyChanged(nameof(SteeringWheelSide)); }
+        }
+        private string _reviewText;
+
+        public string ReviewText
+        {
+            get { return _reviewText; }
+            set { _reviewText = value; OnPropertyChanged(nameof(ReviewText)); }
         }
 
         public UserWindowViewModel()

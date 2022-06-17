@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CarRent.Models;
+using CarRent.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +17,14 @@ using System.Windows.Shapes;
 namespace CarRent.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
+    /// Логика взаимодействия для SendReviewWindow.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class SendReviewWindow : Window
     {
-        public AdminWindow()
+        public SendReviewWindow(Car car, string review)
         {
             InitializeComponent();
+            this.DataContext = new SendReviewWindowViewModel(car, review);
         }
     }
 }

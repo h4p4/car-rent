@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\
 CarRent
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-E:\Desktop\car-rent\CarRent\App.xaml
-4-1363571664
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\App.xaml
+41377434385
 
-19-1363348939
-225-373773958
-Views\AdminWindow.xaml;Views\RentWindow.xaml;Views\StartWindow.xaml;Views\UserWindow.xaml;
+201156439347
+225-2022449501
+Views\RentWindow.xaml;Views\SendReviewWindow.xaml;Views\StartWindow.xaml;Views\UserWindow.xaml;
 
 False
 

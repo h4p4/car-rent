@@ -226,18 +226,18 @@
                                         Command="{Binding ChangeSelectedCarPictureCommand}">➕</Button>
                             </Grid>
                         </Border>
-                        <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold" Name="ReviewTBlock" Visibility="Hidden">Отзывы:</TextBlock>
+                        <TextBlock Margin="0 5 0 0" FontSize="29" FontWeight="DemiBold" Name="ReviewsTBlock" Visibility="Hidden">Отзывы:</TextBlock>
                         <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="120"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox TextWrapping="Wrap"></TextBox>
-                                <TextBlock Text="Ваш отзыв" IsHitTestVisible="False" Foreground="Gray" Margin="5 0 0 0"></TextBlock>
-                                <Button Grid.Column="1" MaxHeight="40" Content="Отправить" VerticalAlignment="Bottom"></Button>
+                                <TextBox TextWrapping="Wrap" Text="{Binding ReviewText, UpdateSourceTrigger=PropertyChanged}" Name="ReviewTBox" TextChanged="ReviewTBox_TextChanged"></TextBox>
+                                <TextBlock Text="Ваш отзыв" Name="ReviewTBlock" IsHitTestVisible="False" Foreground="Gray" Margin="5 0 0 0"></TextBlock>
+                                <Button Command="{Binding SendReviewCommand}" Grid.Column="1" MaxHeight="40" Content="Отправить" VerticalAlignment="Bottom" Name="SendReviewBtn"></Button>
                             </Grid>
-                            <ListBox Name="CarReviewListBox" Visibility="Hidden" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents, UpdateSourceTrigger=PropertyChanged}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ListBox BorderThickness="0" Name="CarReviewListBox" Visibility="Hidden" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCarRents, UpdateSourceTrigger=PropertyChanged}" Height="Auto" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Border  BorderBrush="LightGray" BorderThickness="0 0 0 1"  Margin="0 0 0 5" Padding="0 0 0 5" Height="Auto" >

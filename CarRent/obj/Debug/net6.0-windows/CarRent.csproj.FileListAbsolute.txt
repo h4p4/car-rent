@@ -94,13 +94,11 @@ Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-wind
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.csproj.AssemblyReference.cache
-Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\AdminWindow.g.cs
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\StartWindow.g.cs
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\UserWindow.g.cs
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\App.g.cs
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent_MarkupCompile.cache
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent_MarkupCompile.lref
-Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\AdminWindow.baml
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\StartWindow.baml
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\UserWindow.baml
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\CarRent.g.resources
@@ -178,3 +176,7 @@ Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-wind
 Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\bin\Debug\net6.0-windows\ref\CarRent.dll
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.g.cs
 E:\Desktop\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.baml
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.g.cs
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\RentWindow.baml
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\SendReviewWindow.g.cs
+Z:\1 курс\2 семестр\ПиДИС\car-rent\CarRent\obj\Debug\net6.0-windows\Views\SendReviewWindow.baml
